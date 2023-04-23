@@ -6,5 +6,5 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-members = Members.create([{name:'Juan Areiza', year:'2015'},{name:'Esteban Salgado', year:'2015'},{name:'Marcos Giraldo', year:'2016'},{name:'Julian Agudelo', year:'2016'}])
-Class.create(year:'2015', members: members.first)
+member = Member.create([{name:'Juan Areiza', year:'2015'},{name:'Esteban Salgado', year:'2015'},{name:'Marcos Giraldo', year:'2015'},{name:'Julian Agudelo', year:'2015'}])
+Class.create(year:'2015', members: member.first)
