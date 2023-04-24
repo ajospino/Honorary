@@ -1,44 +1,38 @@
-FROM ruby:3.2.2-alpine
+# Make sure it matches the Ruby version in .ruby-version and Gemfile
+ARG RUBY_VERSION=3.2.0
+FROM ruby:$RUBY_VERSION
 
-ENV BUNDLER_VERSION=2.4.12
+# Install libvips for Active Storage preview support
+RUN apt-get update -qq && \
+    apt-get install -y build-essential libvips && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man
 
-RUN apk add --update --no-cache \
-      binutils-gold \
-      build-base \
-      curl \
-      file \
-      g++ \
-      gcc \
-      git \
-      less \
-      libstdc++ \
-      libffi-dev \
-      libc-dev \ 
-      linux-headers \
-      libxml2-dev \
-      libxslt-dev \
-      libgcrypt-dev \
-      make \
-      netcat-openbsd \
-      nodejs \
-      openssl \
-      pkgconfig \
-      postgresql-dev \
-      python3 \
-      tzdata \
-      yarn
+# Rails app lives here
+WORKDIR /rails
 
-RUN gem install bundler -v 2.4.12
+# Set production environment
+ENV RAILS_LOG_TO_STDOUT="1" \
+    RAILS_SERVE_STATIC_FILES="true" \
+    RAILS_ENV="production" \
+    BUNDLE_WITHOUT="development"
 
-WORKDIR /app
-
+# Install application gems
 COPY Gemfile Gemfile.lock ./
-RUN bundle config build.nokogiri --use-system-libraries
-RUN bundle check || bundle install
+RUN bundle install
 
-COPY package.json yarn.lock ./
-RUN yarn install --check-files
+# Copy application code
+COPY . .
 
-COPY . ./
+# Precompile bootsnap code for faster boot times
+RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
-ENTRYPOINT [ "./entrypoints/docker-entrypoint.sh" ]
+# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
+RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
+
+# Entrypoint prepares the database.
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+
+# Start the server by default, this can be overwritten at runtime
+EXPOSE 3000
+CMD ["./bin/rails", "server"]
