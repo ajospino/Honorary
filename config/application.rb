@@ -11,7 +11,7 @@ module Honorary
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     puts ENV['HOST_ADDRESS']
-    config.web_console.permissions = ENV['HOST_ADDRESS']
+    config.web_console.permissions = "200.12.187.119"
     # Configuration for the application, engines, and railties goes here.
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
