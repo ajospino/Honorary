@@ -4,6 +4,11 @@ pipeline {
         CYPRESS_RECORD_KEY = credentials('63515d87-d3b1-41a9-9b51-2e69ce068b48')
     }
     stages{
+        stage('Install') {
+            steps {
+                git branch: 'main', url: 'https://github.com/ajospino/Honorary.git'
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t honorary:latest .'
