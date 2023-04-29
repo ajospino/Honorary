@@ -1,11 +1,29 @@
-pipeline{
-    agent any
-
-
+pipeline {
+    agent none
     stages {
         stage('Build') {
-            step {
-                git branch: 'main', url: 'https://github.com/ajospino/Honorary.git'
+            agent {
+                docker {
+                    image 'docker/compose'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
+            steps {
+                sh 'docker-compose up -d'
+            }
+        }
+        stage('E2E') {
+            agent {
+                docker {
+                    image 'cypress/base:18.14.1'
+                }
+            }
+            environtment {
+                CYPRESS_RECORD_KEY = credentials('cypress-example-kitchensink-record-key')
+            }
+            steps {
+                sh 'npm ci'
+                sh 'cypress run'
             }
         }
     }
