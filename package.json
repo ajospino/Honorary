@@ -13,7 +13,9 @@
     "scripts": {
         "build": "./run yarn:build",
         "build:css": "./run yarn:build:css",
-        "cypress:open": "cypress open"
+        "cypress:open": "cypress open",
+        "cypress:run": "cypress run",
+        "e2e:record": "cypress run --record"
     },
     "devDependencies": {
         "cypress": "^12.11.0"

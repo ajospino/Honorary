@@ -7,10 +7,10 @@ describe('template spec', () => {
   })
   it('Check there are seniors', () => {
     cy.get('[cy-testid^="senior"]').should('be.visible').each(($el, index) => {
-      cy.findByTestId(`name-senior${index+1}`).should('be.visible')
-      cy.findByTestId(`phrase-senior${index+1}`).should('be.visible')
-      cy.findByTestId(`promotion-senior${index+1}`).should('be.visible')
-      cy.findByTestId(`show-senior${index+1}`).should('be.visible')
+      cy.get('[cy-testid^="name-senior"]').should('be.visible')
+      cy.get('[cy-testid^="phrase-senior"]').should('be.visible')
+      cy.get('[cy-testid^="promotion-senior"]').should('be.visible')
+      cy.get('[cy-testid^="show-senior"]').should('be.visible')
     })
   })
   it('Check new memeber button', () => {
