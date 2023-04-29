@@ -1,29 +1,34 @@
 pipeline {
-    agent none
+    agent any
     stages {
-        stage('Build') {
-            agent {
-                docker {
-                    image 'docker/compose'
-                    args '-v /var/run/docker.sock:/var/run/docker.sock'
-                }
-            }
+        stage('Install') {
             steps {
-                sh 'docker-compose up -d'
+                git branch: 'main': 'https://github.com/ajospino/Honorary.git'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t honorary:latest .'
+            }
+        }
+        stage('Run Docker Container') {
+            steps {
+                sh 'docker run --rm -it -v app-storage:/rails/storage --env-file .env --name honorapp -p 3000:3000 honorary:latest'
             }
         }
         stage('E2E') {
-            agent {
-                docker {
-                    image 'cypress/base:18.14.1'
-                }
-            }
             environtment {
-                CYPRESS_RECORD_KEY = credentials('cypress-example-kitchensink-record-key')
+                CYPRESS_RECORD_KEY = credentials('63515d87-d3b1-41a9-9b51-2e69ce068b48')
             }
             steps {
-                sh 'npm ci'
-                sh 'cypress run'
+                sh 'npm i'
+                sh 'npm run cypress:run'
+            }
+        }
+        stage('Stop and remove Docker container') {
+            steps {
+                sh 'docker stop honorapp'
+                sh 'docker rm honorapp'
             }
         }
     }
