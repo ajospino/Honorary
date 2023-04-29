@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Install') {
             steps {
-                git branch: 'main': 'https://github.com/ajospino/Honorary.git'
+                git branch: 'main', url: 'https://github.com/ajospino/Honorary.git'
             }
         }
         stage('Build Docker Image') {
