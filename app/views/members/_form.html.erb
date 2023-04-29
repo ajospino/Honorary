@@ -12,21 +12,21 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.label :name, style: "display: block", "cy-testId": "label-input-name" %>
+    <%= form.text_field :name, "cy-testId": "input-name"%>
   </div>
 
   <div>
-    <%= form.label :phrase, style: "display: block" %>
-    <%= form.text_field :phrase %>
+    <%= form.label :phrase, style: "display: block", "cy-testId": "label-input-phrase" %>
+    <%= form.text_field :phrase, "cy-testId": "input-phrase" %>
   </div>
 
   <div>
-    <%= form.label :promotion_id, style: "display: block" %>
-    <%= form.collection_select :promotion_id, Promotion.order(:year),:id,:year, include_blank:false %>
+    <%= form.label :promotion_id, style: "display: block", "cy-testId": "label-input-promotion"%>
+    <%= form.collection_select :promotion_id, Promotion.order(:year),:id,:year, include_blank:false, "cy-testId": "input-promotion" %>
   </div>
 
-  <div>
+  <div cy-testId="submit">
     <%= form.submit %>
   </div>
 <% end %>

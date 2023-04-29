@@ -1,17 +1,17 @@
-<div id="<%= dom_id member %>">
-  <p>
+<div id="<%= dom_id member%>" cy-testId="<%="senior#{member.id}"%>">
+  <p cy-testId="<%= "name-senior#{member.id}" %>">
     <strong>Name:</strong>
-    <%= member.name %>
+    <%= member.name%>
   </p>
 
-  <p>
+  <p cy-testId="<%= "phrase-senior#{member.id}"%>">
     <strong>Phrase:</strong>
-    <%= member.phrase %>
+    <%= member.phrase%>
   </p>
 
-  <p>
+  <p cy-testId="<%= "promotion-senior#{member.id}"%>">
     <strong>Promotion:</strong>
-    <%= member.promotion_id %>
+    <%= member.promotion_id%>
   </p>
 
 </div>
