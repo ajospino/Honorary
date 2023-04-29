@@ -3,8 +3,8 @@
 <%= render @member %>
 
 <div>
-  <%= link_to "Edit this member", edit_member_path(@member) %> |
-  <%= link_to "Back to members", members_path %>
+  <%= link_to "Edit this member", edit_member_path(@member), "cy-testId": "edit-senior-button" %> |
+  <%= link_to "Back to members", members_path, "cy-testId": "back-to-members-button" %>
 
-  <%= button_to "Destroy this member", @member, method: :delete %>
+  <%= button_to "Delete this member", @member, method: :delete, "cy-testId": "delete-senior-button" %>
 </div>
