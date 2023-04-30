@@ -22,7 +22,7 @@ pipeline {
         stage('E2E') {
             steps {
                 sh 'npm i'
-                sh 'npm run cypress:run'
+                sh 'npm run e2e:record'
             }
         }
         stage('Stop and remove Docker container') {
