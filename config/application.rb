@@ -9,6 +9,7 @@ Bundler.require(*Rails.groups)
 module Honorary
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    Rails.application.config.hosts << "honoraryprod.us-east-2.elasticbeanstalk.com"
     config.load_defaults 7.0
     # Configuration for the application, engines, and railties goes here.
     # These settings can be overridden in specific environments using the files
