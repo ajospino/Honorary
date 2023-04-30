@@ -32,6 +32,12 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 #
 # workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 
+on_worker_boot do
+    require "active_record"
+    ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
+    ActiveRecord::Base.establish_connection(YAML.load_file("#{app_dir}/config/database.yml")[RAILS_ENV])
+  end
+
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
 # before forking the application. This takes advantage of Copy On Write
