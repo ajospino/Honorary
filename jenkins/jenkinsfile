@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment {
-        CYPRESS_RECORD_KEY = credentials('63515d87-d3b1-41a9-9b51-2e69ce068b48')
-    }
     stages{
         stage('Install') {
             steps {
