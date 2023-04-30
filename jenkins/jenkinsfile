@@ -1,5 +1,13 @@
 pipeline {
     agent any
+
+    environment {
+        DATABASE_NAME=postgres
+        DATABASE_USER=honor_admin
+        DATABASE_PASS="pyXA3Y9@7D^co@#i6YBpo!%%Mw6rrSkvRSbWhLjcqJ"
+        DATABASE_HOST=honorary.postgres.database.azure.com
+        REDIS_HOST   =redis
+    }
     stages{
         stage('Install') {
             steps {
