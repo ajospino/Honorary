@@ -12,6 +12,8 @@ pipeline {
         stage('Install') {
             steps {
                 git branch: 'main', url: 'https://github.com/ajospino/Honorary.git'
+                sh 'touch .env'
+                sh 'printenv > .env'
             }
         }
         stage('Build Docker Image') {
