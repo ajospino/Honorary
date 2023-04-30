@@ -22,6 +22,7 @@ RUN bundle install
 # Copy application code
 COPY . .
 
+RUN cat .env
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
