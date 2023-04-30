@@ -1,6 +1,5 @@
 # Make sure it matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=3.2.2
-FROM ruby:$RUBY_VERSION
+FROM ruby:3.2.2
 
 # Install libvips for Active Storage preview support
 RUN apt-get update -qq && \
