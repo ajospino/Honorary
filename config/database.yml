@@ -1,10 +1,10 @@
 default: &default
   adapter: postgresql
   encoding: utf-8
-  database: <%= ENV['DATABASE_NAME'] %>
-  username: <%= ENV['DATABASE_USER'] %>
-  password: <%= ENV['DATABASE_PASS'] %>
-  host: <%= ENV['DATABASE_HOST'] %>
+  database: postgres
+  username: honor_admin
+  password: pyXA3Y9@7D^co@#i6YBpo!%%Mw6rrSkvRSbWhLjcqJ
+  host: honorary.postgres.database.azure.com
   sslmode: require
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
