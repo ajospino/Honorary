@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Run Docker Container') {
             steps {
-                sh 'docker run --rm -it -v app-storage:/rails/storage --env-file .env --name honorapp -p 3000:3000 honorary:latest'
+                sh 'docker run --rm -v app-storage:/rails/storage --env-file .env --name honorapp -p 3000:3000 honorary:latest'
             }
         }
         stage('E2E') {
