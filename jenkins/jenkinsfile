@@ -17,14 +17,14 @@ pipeline {
             steps {
                 // Check if the container exists
                 script {
-                containerId = sh(script: 'docker ps -q --filter "name=my-honorapp"', returnStdout: true).trim()
+                    containerId = sh(script: 'docker ps -q --filter "name=honorapp"', returnStdout: true).trim()
                 }
                 // If the container exists, stop it
                 when {
-                expression { containerId != '' }
+                    expression { containerId != '' }
                 }
                 steps {
-                sh "docker stop $containerId"
+                    sh "docker stop $containerId"
                 }
             }
         }
