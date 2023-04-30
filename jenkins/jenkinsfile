@@ -13,6 +13,21 @@ pipeline {
         REDIS_HOST    = 'redis'
     }
     stages{
+        stage('Stop container') {
+            steps {
+                // Check if the container exists
+                script {
+                containerId = sh(script: 'docker ps -q --filter "name=my-container"', returnStdout: true).trim()
+                }
+                // If the container exists, stop it
+                when {
+                expression { containerId != '' }
+                }
+                steps {
+                sh "docker stop $containerId"
+                }
+            }
+        }
         stage('Install') {
             steps {
                 git branch: 'main', url: 'https://github.com/ajospino/Honorary.git'
