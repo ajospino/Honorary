@@ -1,5 +1,10 @@
 pipeline {
     agent any
+
+    parameters {
+        string(name: 'cy_key', defaultValue: '63515d87-d3b1-41a9-9b51-2e69ce068b48', description: 'Clave para grabar pruebas en cypress cloud')
+    }
+
     stages{
         stage('Install') {
             steps {
