@@ -15,7 +15,7 @@
         "build:css": "./run yarn:build:css",
         "cypress:open": "cypress open",
         "cypress:run": "cypress run",
-        "e2e:record": "cypress run --record"
+        "e2e:record": "cypress run --record --key 63515d87-d3b1-41a9-9b51-2e69ce068b48"
     },
     "devDependencies": {
         "cypress": "^12.11.0"
