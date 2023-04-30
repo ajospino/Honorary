@@ -28,13 +28,20 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # the concurrency of the application would be max `threads` * `workers`.
 # Workers do not work on JRuby or Windows (both of which do not support
 # processes).
-# workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+rails_env = ENV['RAILS_ENV'] || "development"
+
+app_dir = File.expand_path("../..", __FILE__)
+
+workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
 # before forking the application. This takes advantage of Copy On Write
 # process behavior so workers use less memory.
 #
-# preload_app!
+preload_app!
+
+require 'erb'
+ActiveRecord::Base.establish_connection( YAML.load( ERB.new( File.read( "#{app_dir}/config/database.yml" )).result)[rails_env])
 
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
